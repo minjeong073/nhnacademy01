@@ -1,0 +1,31 @@
+<configuration>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>myApp.log</file>  <!-- 어느 파일에 넣을건지 -->
+
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.nhnacademy.edu.springframework" level="INFO" additivity="false">
+<!-- additivity="false" 넣어서 상위 logger에 append 되지 않게 함 (중복처리)-->
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="chapters.configuration.Foo" level="DEBUG"/>
+
+    <!-- turn OFF all logging (children can override) -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>
