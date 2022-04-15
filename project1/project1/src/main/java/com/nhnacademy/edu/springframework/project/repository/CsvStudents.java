@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import org.apache.commons.logging.Log;
+import org.springframework.stereotype.Repository;
 
 
 /** DONE 3 :
@@ -16,15 +18,16 @@ import java.util.*;
  * Done 7 :
  * singleton 클래스를 만드세요.
  */
+@Repository
 public class CsvStudents implements Students {
 
-    private static Students INSTANCE = new CsvStudents();
+//    private static Students INSTANCE = new CsvStudents();
 
     private final Map<Integer,Student> students = new HashMap<>();
 
-    public static Students getInstance() {
-        return INSTANCE;
-    }
+//    public static Students getInstance() {
+//        return INSTANCE;
+//    }
 
     /**
      * Done 6 : student.csv 파일에서 데이터를 읽어 students 에 추가하는 로직을 구현하세요.
@@ -32,7 +35,8 @@ public class CsvStudents implements Students {
 
     @Override
     public void load() {
-        String filepath = "src/main/resources/data/student.csv";
+        Log log = null;
+        String filepath = "C:\\Users\\kimmj\\IdeaProjects\\SpringFramework\\0412\\project1\\project1\\src\\main\\resources\\data\\student.csv";
         InputStream is = CsvStudents.class.getResourceAsStream(filepath);
 
         BufferedReader bufferedReader = null;
@@ -49,13 +53,13 @@ public class CsvStudents implements Students {
 //                System.out.println(studentNum + " : " + students.get(studentNum));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("fail to process file", e);
         } finally {
             if (bufferedReader != null) {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error("fail to process file", e);
                 }
             }
         }
